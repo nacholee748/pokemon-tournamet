@@ -14,7 +14,7 @@ class Summary:
 
     @property
     def champion(self) -> str:
-        return "Bulbasaur"
+        return self._reporter._winner
 
     @property
     def most_common_ability_used_in_battle(self) -> str:
