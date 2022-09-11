@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from typing import Sequence
-import requests
-import threading
-import concurrent.futures
-from PIL import Image
-import os
+# import requests
+# import threading
+# import concurrent.futures
+# from PIL import Image
+# import os
 
 import numpy as np
 import pandas as pd
