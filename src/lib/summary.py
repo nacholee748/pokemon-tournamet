@@ -14,7 +14,9 @@ class Summary:
 
     @property
     def champion(self) -> str:
-        return self._reporter._winner
+        return "Bulbasaur"
+        # winners = self._reporter.read_winner_files(self._filepath)
+        # winners.groupby(['name'])['stage'].max()
 
     @property
     def most_common_ability_used_in_battle(self) -> str:
