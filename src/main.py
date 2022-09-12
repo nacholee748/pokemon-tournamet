@@ -9,6 +9,7 @@ from lib.summary import Summary
 from lib.tournament import Tournament
 from lib.image_repository import ImageRepository, DownloadableCharacter
 from lib.reporting import Reporter
+import os
 
 
 def main(workdir) -> None:
@@ -180,7 +181,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--workdir",
         type=Path,
-        default="./pokemon-tournament",
+        default= os.getcwd(), # "./pokemon-tournament",
         help="Working directory for the application",
     )
 

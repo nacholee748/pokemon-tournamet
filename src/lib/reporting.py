@@ -9,13 +9,13 @@ from lib.battle import BattleSummary, Pokemon
 class WithName(Protocol):
     name: str
 
-
 class Reporter:
     """Persists the results matches into permanent storage. """
     def __init__(self, dir: Path) -> None:
         self._filepath = dir
         self._report: Dict[str, str] = {}
         self._num_stages = 0
+        _reset_folder_poke_data(dir)
 
     def update(
         self, *, stage: int, results: Sequence[BattleSummary]
@@ -63,32 +63,38 @@ class Reporter:
 
     def review_stage(self, stage: int) -> List[Tuple[str, str]]:
         """Returns the battles at a particular stage. """
-        rounds = read_rounds_files()        
+        rounds = self.read_rounds_files()        
         return (list(rounds[rounds['stage']==1][['attacker','defendant']]))
-
 
     @property
     def num_stages(self):
         return self._num_stages
 
-### Validar si si debe colocar aca 
-def read_winner_files()->pd.DataFrame:
-    current_path = os.getcwd()
+    ### Validar si si debe colocar aca 
+    def read_winner_files(self)->pd.DataFrame:
+        winner_path = os.path.join(self._filepath,"poke-data","winner.csv")
+        winner = pd.read_csv(winner_path)
+        return winner
+
+    def read_defeated_files(self)->pd.DataFrame:
+        # current_path = os.getcwd()
+        defeated_path = os.path.join(self._filepath,"poke-data","defeated.csv")
+        defeated = pd.read_csv(defeated_path)
+        return defeated
+
+    def read_rounds_files(self)->pd.DataFrame:
+        # current_path = os.getcwd()
+        rounds_path = os.path.join(self._filepath,"poke-data","rounds.csv")
+        rounds = pd.read_csv(rounds_path)
+        return rounds
+
+def _reset_folder_poke_data(current_path: Path):
     winner_path = os.path.join(current_path,"poke-data","winner.csv")
-    winner = pd.read_csv(winner_path)
-    return winner
-
-def read_defeated_files()->pd.DataFrame:
-    current_path = os.getcwd()
+    os.remove(winner_path)
     defeated_path = os.path.join(current_path,"poke-data","defeated.csv")
-    defeated = pd.read_csv(defeated_path)
-    return defeated
-
-def read_rounds_files()->pd.DataFrame:
-    current_path = os.getcwd()
+    os.remove(defeated_path)
     rounds_path = os.path.join(current_path,"poke-data","rounds.csv")
-    rounds = pd.read_csv(rounds_path)
-    return rounds
+    os.remove(rounds_path)   
 
 
 
