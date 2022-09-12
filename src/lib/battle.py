@@ -49,8 +49,8 @@ def simulate_battle(p1: Pokemon, p2: Pokemon, random_seed: int = 0) -> BattleSum
         return BattleSummary(winner=p1,defeated=p2,rounds=[])
 
     random.seed(random_seed)
-    winner_count = {p1.name:0,p2.name:0}
-    winner_rounds = {p1.name:[],p2.name:[]}
+    winner_count: Dict[str,int]  = {p1.name:0,p2.name:0}
+    winner_rounds: Dict[str,list]  = {p1.name:[],p2.name:[]}
 
     for _ in range(1000):
         result = one_battle(p1,p2)
